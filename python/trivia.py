@@ -7,19 +7,19 @@ class Game:
         self.purses = [0] * 6
         self.in_penalty_box = [0] * 6
 
-        self.pop_questions = []
-        self.science_questions = []
-        self.sports_questions = []
-        self.rock_questions = []
+        self.questions = {
+            'Pop': [],
+            'Science': [],
+            'Sports': [],
+            'Rock': []
+        }
 
         self.current_player = 0
         self.is_getting_out_of_penalty_box = False
 
         for i in range(50):
-            self.pop_questions.append(self.create_question("Pop", i))
-            self.science_questions.append(self.create_question("Science", i))
-            self.sports_questions.append(self.create_question("Sports", i))
-            self.rock_questions.append(self.create_question("Rock", i))
+            for type in ['Pop', 'Science', 'Sports', 'Rock']:
+                self.questions[type].append(self.create_question(type, i))
 
     def create_question(self, name, index):
         return "%s Question %s" % (name, index)
@@ -75,22 +75,13 @@ class Game:
             self._ask_question()
 
     def _ask_question(self):
-        if self._current_category == 'Pop': print(self.pop_questions.pop(0))
-        if self._current_category == 'Science': print(self.science_questions.pop(0))
-        if self._current_category == 'Sports': print(self.sports_questions.pop(0))
-        if self._current_category == 'Rock': print(self.rock_questions.pop(0))
+        print(self.questions[self._current_category].pop(0))
 
     @property
     def _current_category(self):
-        if self.places[self.current_player] == 0: return 'Pop'
-        if self.places[self.current_player] == 4: return 'Pop'
-        if self.places[self.current_player] == 8: return 'Pop'
-        if self.places[self.current_player] == 1: return 'Science'
-        if self.places[self.current_player] == 5: return 'Science'
-        if self.places[self.current_player] == 9: return 'Science'
-        if self.places[self.current_player] == 2: return 'Sports'
-        if self.places[self.current_player] == 6: return 'Sports'
-        if self.places[self.current_player] == 10: return 'Sports'
+        if self.places[self.current_player] in [0, 4, 8]: return 'Pop'
+        if self.places[self.current_player] in [1, 5, 9]: return 'Science'
+        if self.places[self.current_player] in [2, 6, 10]: return 'Sports'
         return 'Rock'
 
     def was_correctly_answered(self):
