@@ -143,7 +143,7 @@ class Game:
         return not (self.purses[self.current_player] == 6)
 
 
-from random import randrange
+from random import randrange, seed
 
 def main():
     not_a_winner = False
@@ -154,19 +154,17 @@ def main():
     game.add('Pat')
     game.add('Sue')
 
-    cpt = 0
+    seed(10)
 
     while True:
-        game.roll(cpt)
+        game.roll(randrange(5) + 1)
 
-        if cpt == 7:
+        if randrange(9) == 7:
             not_a_winner = game.wrong_answer()
         else:
             not_a_winner = game.was_correctly_answered()
 
         if not not_a_winner: break
-
-        cpt += 1
 
 if __name__ == '__main__':
     main()
