@@ -1,17 +1,6 @@
 import pytest
 import trivia
 
-def print_hello():
-    print("Hello")
-
-def test_game(capsys):
-    print_hello()
-
-    captured = capsys.readouterr()
-    
-    # Tester le contenu de stdout
-    assert captured.out == "Hello\n"
-
 def test_trivia(capsys):
     trivia.main()
 
