@@ -104,8 +104,6 @@ class Game:
                 if self.current_player == len(self.players): self.current_player = 0
                 return True
 
-
-
         else:
 
             print("Answer was corrent!!!!")
